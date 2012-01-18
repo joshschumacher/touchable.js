@@ -3,9 +3,10 @@ A common interaction on desktop browsers is to apply a mousedown state on user i
 
 The need for mousedown type states are also needed on mobile devices but there is not standard API for applying an active state to an element while it is being touched.
 
-Use touchable.js to create press states on 
-+ Standard desktop browsers with mouse interactions
-+ Mobile devices with touch interactions
+Use touchable.js to create press states on
+
+* Standard desktop browsers with mouse interactions
+* Mobile devices with touch interactions
 
 ## Sample Usage:
 ````javascript
