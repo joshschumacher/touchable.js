@@ -1,48 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Touchable Test</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="jquery.touchable.js"></script>
-	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
-	<style type="text/css">
-      html, body {
-        background-color: #eee;
-      }
-      .container {
-        width: 820px
-      }
-      .content {
-        background-color: #fff;
-        padding: 20px;
-        margin: 0;
-      }
-
-	ul li {
-		display: block;
-		padding: 10px;
-		background: white;
-		color: black;
-	}
 	
-	ul li.active {
-		background: #444;
-		color: white;
-	}
+	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
+
+	<style type="text/css">
+		html, body {
+			background-color: #eee;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-user-select: none;
+		}
+
+		.container {
+			margin-top: 20px;
+    		width: 300px
+		}
+		
+		#log {
+			margin-top: 20px;
+			padding: 10px;
+		}
+
+		.content {
+	    	background-color: #fff;
+		}
+		
+		#links ul li:first-child {
+			border-top: solid 1px #ddd;
+		}
+
+		#links ul li {
+			margin: 0;
+			display: block;
+			padding: 20px;
+			background: white;
+			color: black;
+			border-bottom: solid 1px #ddd;
+		}
+	
+		#links ul {
+			margin: 0;
+		}
+	
+		#links ul li.active {
+			background: #444;
+			color: white;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="content">
+		<div class="content" id="links">
 			<ul>
 				<li href="http://google.com">Google</li>
 				<li href="http://bing.com">Bing</li>
-				<li>Yahoo!</li>
+				<li href="http://yahoo.com">Yahoo!</li>
 				<li>Ask</li>
 			</ul>
+		</div>
+		
+		<div class="content" id="log">
+			<h2>Event Log</h2>
+			<ul></ul>
 		</div>
 	</div>
 
@@ -50,14 +75,17 @@
 	$(document).ready(function() {
 		$('ul li').touchable({
 			touch_start: function() {
+				$("#log ul").prepend("<li>"+$(this).text()+" touch_start</li>");
 	            $(this).addClass('active');
 	        },
 	        touch_end: function() {
+				$("#log ul").prepend("<li>"+$(this).text()+" touch_end</li>");
 	            $(this).removeClass('active');
 	        },
 	        clicked: function() {
+				$("#log ul").prepend("<li>"+$(this).text()+" clicked</li>");
 	            if (href = $(this).attr('href')) {
-					alert("Would navigate to "+href);
+					confirm("Would navigate to "+href);
 	                //document.location.href= href;
 	            }
 	        }

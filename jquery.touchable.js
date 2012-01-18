@@ -90,7 +90,7 @@
                 }
             });
 
-            var bind = isTouchDevice ? 'touchend' : 'mouseup mouseout';
+            var bind = isTouchDevice ? 'touchend touchcancel' : 'mouseup mouseout';
             $this.bind(bind, function(event) {
             	var c = getCoords(event),
             		$me = $(this);
@@ -123,7 +123,11 @@
             });
 
             $this.bind('clicked', function() {
-                options.clicked.apply(this);
+                var _this = this;
+                // Short timeout fixes issue of a touchstart getting triggered after click on iOS
+                setTimeout(function() {
+                    options.clicked.apply(_this);
+                }, 50);
             });
         });
     };
